@@ -89,7 +89,7 @@ namespace KsiegarniaPKP.Models
             modelBuilder.Entity<Dokument>()
                 .HasOne(d => d.Pracownik)
                 .WithMany(u => u.PracownikDokumenty)
-                .HasForeignKey(d => d.Pracownik);
+                .HasForeignKey(d => d.PracownikId);
         }
     }
 }

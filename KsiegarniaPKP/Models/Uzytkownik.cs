@@ -14,9 +14,6 @@ namespace KsiegarniaPKP.Models
         [Required]
         [MaxLength(50)]
         public string Nazwisko { get; set; }
-        [Required]
-        [MaxLength(20)]
-        public string Rola { get; set; }
 
         public virtual List<PozycjaKoszyka> PozycjeKoszyka { get; set; } = new List<PozycjaKoszyka>();
         public virtual List<Dostawa> PracownikDostawy { get; set; } = new List<Dostawa>();

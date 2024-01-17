@@ -13,11 +13,11 @@ namespace KsiegarniaPKP.Models
         public virtual Dostawa Dostawa { get; set; }
 
         [ForeignKey("Klient")]
-        public int KlientId { get; set; }
+        public string KlientId { get; set; }
         public virtual Uzytkownik Klient { get; set; }
 
         [ForeignKey("Pracownik")]
-        public int PracownikId { get; set; }
+        public string PracownikId { get; set; }
         public virtual Uzytkownik Pracownik { get; set; }
 
         [ForeignKey("Dokument")]
