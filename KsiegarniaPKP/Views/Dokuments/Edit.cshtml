@@ -1,0 +1,59 @@
+﻿@model KsiegarniaPKP.Models.Dokument
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Dokument</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="PracownikId" class="control-label"></label>
+                <select asp-for="PracownikId" class="form-control" asp-items="ViewBag.PracownikId"></select>
+                <span asp-validation-for="PracownikId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NrDokumentu" class="control-label"></label>
+                <input asp-for="NrDokumentu" class="form-control" />
+                <span asp-validation-for="NrDokumentu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataWystawienia" class="control-label"></label>
+                <input asp-for="DataWystawienia" class="form-control" />
+                <span asp-validation-for="DataWystawienia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nabywca" class="control-label"></label>
+                <input asp-for="Nabywca" class="form-control" />
+                <span asp-validation-for="Nabywca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kwota" class="control-label"></label>
+                <input asp-for="Kwota" class="form-control" />
+                <span asp-validation-for="Kwota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Podatek" class="control-label"></label>
+                <input asp-for="Podatek" class="form-control" />
+                <span asp-validation-for="Podatek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

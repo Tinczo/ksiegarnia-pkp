@@ -1,3 +1,4 @@
+using KsiegarniaPKP.Data;
 using KsiegarniaPKP.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,7 +56,7 @@ namespace KsiegarniaPKP
             app.UseAuthentication();
             app.UseAuthorization();
 
-            
+            MyIdentityDataInitializer.SeedData(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

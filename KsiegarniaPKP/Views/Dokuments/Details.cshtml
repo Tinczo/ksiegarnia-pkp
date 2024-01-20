@@ -1,0 +1,54 @@
+﻿@model KsiegarniaPKP.Models.Dokument
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Dokument</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pracownik)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pracownik.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NrDokumentu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NrDokumentu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataWystawienia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataWystawienia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nabywca)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nabywca)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kwota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kwota)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Podatek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Podatek)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

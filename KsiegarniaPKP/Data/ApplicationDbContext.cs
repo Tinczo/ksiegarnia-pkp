@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using KsiegarniaPKP.Models;
 
 namespace KsiegarniaPKP.Models
 {
@@ -91,5 +92,8 @@ namespace KsiegarniaPKP.Models
                 .WithMany(u => u.PracownikDokumenty)
                 .HasForeignKey(d => d.PracownikId);
         }
+
+        // Tutaj konfigurujesz relacje między encjami
+        public DbSet<KsiegarniaPKP.Models.PozycjaKoszyka> PozycjaKoszyka { get; set; }
     }
 }
