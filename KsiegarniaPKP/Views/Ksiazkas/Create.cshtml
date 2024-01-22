@@ -1,17 +1,21 @@
-﻿@model KsiegarniaPKP.Models.Ksiazka
+﻿@model KsiegarniaPKP.Models.KsiazkaCreateView
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Dodaj nową książkę</h1>
 
-<h4>Ksiazka</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Obrazek" class="control-label">Zdjęcie</label>
+                <input type="file" asp-for="Obrazek" class="form-control" />
+                <span asp-validation-for="Obrazek" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Autor" class="control-label"></label>
                 <input asp-for="Autor" class="form-control" />
@@ -23,7 +27,7 @@
                 <span asp-validation-for="Tytul" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RokWydania" class="control-label"></label>
+                <label asp-for="RokWydania" class="control-label">Rok wydania</label>
                 <input asp-for="RokWydania" class="form-control" />
                 <span asp-validation-for="RokWydania" class="text-danger"></span>
             </div>
@@ -34,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Cena" class="control-label"></label>
-                <input asp-for="Cena" class="form-control" />
+                <input asp-for="Cena" class="form-control" step="0.01" />
                 <span asp-validation-for="Cena" class="text-danger"></span>
             </div>
             <div class="form-group">
