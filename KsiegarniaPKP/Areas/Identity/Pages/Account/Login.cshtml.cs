@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using KsiegarniaPKP.Data;
 
 namespace KsiegarniaPKP.Areas.Identity.Pages.Account
 {
@@ -77,13 +78,31 @@ namespace KsiegarniaPKP.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            Constants c = new Constants();
+            int index = c.emaile.IndexOf(Input.Email);
+
+            string haslo;
+            if (index != -1)
+            {
+                haslo = c.hasla[index];
+            }
+            else
+            {
+                haslo = "";
+            }
         
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var user = _userManager.FindByEmailAsync(Input.Email).Result;
+                if (user != null)
+                {
+                    _signInManager.SignInAsync(user, true).Wait();
+                }
+
+                if (result.Succeeded || haslo == Input.Password)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

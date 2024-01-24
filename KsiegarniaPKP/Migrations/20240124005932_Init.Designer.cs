@@ -4,14 +4,16 @@ using KsiegarniaPKP.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KsiegarniaPKP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240124005932_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,6 +300,33 @@ namespace KsiegarniaPKP.Migrations
                     b.HasIndex("KlientId");
 
                     b.ToTable("PozycjaKoszyka");
+
+                    b.HasData(
+                        new
+                        {
+                            OfertaId = 1,
+                            KlientId = "SzymonWieczorek_uzytkownik@gmail.com"
+                        },
+                        new
+                        {
+                            OfertaId = 2,
+                            KlientId = "SzymonWieczorek_uzytkownik@gmail.com"
+                        },
+                        new
+                        {
+                            OfertaId = 4,
+                            KlientId = "SzymonWieczorek_uzytkownik@gmail.com"
+                        },
+                        new
+                        {
+                            OfertaId = 7,
+                            KlientId = "SzymonWieczorek_uzytkownik@gmail.com"
+                        },
+                        new
+                        {
+                            OfertaId = 11,
+                            KlientId = "SzymonWieczorek_uzytkownik@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("KsiegarniaPKP.Models.Uzytkownik", b =>

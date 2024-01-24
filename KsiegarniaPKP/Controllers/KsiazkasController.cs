@@ -53,7 +53,7 @@ namespace KsiegarniaPKP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Autor,Tytul,RokWydania,Opis,Cena")] Ksiazka ksiazka)
+        public async Task<IActionResult> Create([Bind("Id,Autor,Tytul,Gatunek,Opis,Cena")] Ksiazka ksiazka)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace KsiegarniaPKP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Autor,Tytul,RokWydania,Opis,Cena")] Ksiazka ksiazka)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Autor,Tytul,Gatunek,Opis,Cena")] Ksiazka ksiazka)
         {
             if (id != ksiazka.Id)
             {
@@ -148,5 +148,6 @@ namespace KsiegarniaPKP.Controllers
         {
             return _context.Ksiazki.Any(e => e.Id == id);
         }
+
     }
 }

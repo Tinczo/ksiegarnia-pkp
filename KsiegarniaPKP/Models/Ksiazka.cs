@@ -14,7 +14,8 @@ namespace KsiegarniaPKP.Models
         [Required, MaxLength(255)]
         public string Tytul { get; set; }
 
-        public int RokWydania { get; set; }
+        [Required, MaxLength(255)]
+        public string Gatunek { get; set; }
 
         [Required, MaxLength(255)]
         public string Opis { get; set; }

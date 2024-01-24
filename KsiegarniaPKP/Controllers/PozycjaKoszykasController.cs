@@ -26,17 +26,22 @@ namespace KsiegarniaPKP.Controllers
         }
 
         // GET: PozycjaKoszykas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? klientId)
         {
-            if (id == null)
+            if (id == null || klientId == null)
             {
                 return NotFound();
             }
 
-            var pozycjaKoszyka = await _context.PozycjaKoszyka
-                .Include(p => p.Klient)
-                .Include(p => p.Oferta)
-                .FirstOrDefaultAsync(m => m.OfertaId == id);
+            ;
+
+            var pozycjaKoszyka = _context.PozycjaKoszyka
+                                        .Where(pk => pk.OfertaId == id && pk.KlientId == klientId)
+                                        .Include(pk => pk.Klient)
+                                        .Include(pk => pk.Oferta)
+                                        .ThenInclude(o => o.Ksiazka)
+                                        .First();
+
             if (pozycjaKoszyka == null)
             {
                 return NotFound();
@@ -63,6 +68,8 @@ namespace KsiegarniaPKP.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(pozycjaKoszyka);
+                _context.Oferty.Where(o => o.OfertaId == pozycjaKoszyka.OfertaId).First().Dostepnosc = false;
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -71,73 +78,21 @@ namespace KsiegarniaPKP.Controllers
             return View(pozycjaKoszyka);
         }
 
-        // GET: PozycjaKoszykas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var pozycjaKoszyka = await _context.PozycjaKoszyka.FindAsync(id);
-            if (pozycjaKoszyka == null)
-            {
-                return NotFound();
-            }
-            ViewData["KlientId"] = new SelectList(_context.Uzytkownik, "Id", "Id", pozycjaKoszyka.KlientId);
-            ViewData["OfertaId"] = new SelectList(_context.Oferty, "OfertaId", "OfertaId", pozycjaKoszyka.OfertaId);
-            return View(pozycjaKoszyka);
-        }
-
-        // POST: PozycjaKoszykas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OfertaId,KlientId")] PozycjaKoszyka pozycjaKoszyka)
-        {
-            if (id != pozycjaKoszyka.OfertaId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(pozycjaKoszyka);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PozycjaKoszykaExists(pozycjaKoszyka.OfertaId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["KlientId"] = new SelectList(_context.Uzytkownik, "Id", "Id", pozycjaKoszyka.KlientId);
-            ViewData["OfertaId"] = new SelectList(_context.Oferty, "OfertaId", "OfertaId", pozycjaKoszyka.OfertaId);
-            return View(pozycjaKoszyka);
-        }
-
         // GET: PozycjaKoszykas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string? klientId)
         {
-            if (id == null)
+            if (id == null || klientId == null)
             {
                 return NotFound();
             }
 
-            var pozycjaKoszyka = await _context.PozycjaKoszyka
-                .Include(p => p.Klient)
-                .Include(p => p.Oferta)
-                .FirstOrDefaultAsync(m => m.OfertaId == id);
+            var pozycjaKoszyka = _context.PozycjaKoszyka
+                                        .Where(pk => pk.OfertaId == id && pk.KlientId == klientId)
+                                        .Include(pk => pk.Klient)
+                                        .Include(pk => pk.Oferta)
+                                        .ThenInclude(o => o.Ksiazka)
+                                        .First();
+
             if (pozycjaKoszyka == null)
             {
                 return NotFound();
@@ -149,9 +104,14 @@ namespace KsiegarniaPKP.Controllers
         // POST: PozycjaKoszykas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? OfertaId, string? KlientId)
         {
-            var pozycjaKoszyka = await _context.PozycjaKoszyka.FindAsync(id);
+            var pozycjaKoszyka = _context.PozycjaKoszyka
+                                        .Where(pk => pk.OfertaId == OfertaId && pk.KlientId == KlientId)
+                                        .First();
+
+
+            _context.Oferty.Where(o => o.OfertaId == pozycjaKoszyka.OfertaId).First().Dostepnosc = true;
             _context.PozycjaKoszyka.Remove(pozycjaKoszyka);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

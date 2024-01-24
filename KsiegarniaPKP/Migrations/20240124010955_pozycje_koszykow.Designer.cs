@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KsiegarniaPKP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240117120623_Init")]
-    partial class Init
+    [Migration("20240124010955_pozycje_koszykow")]
+    partial class pozycje_koszykow
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,13 +108,15 @@ namespace KsiegarniaPKP.Migrations
                     b.Property<float>("Cena")
                         .HasColumnType("real");
 
-                    b.Property<string>("Opis")
+                    b.Property<string>("Gatunek")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("RokWydania")
-                        .HasColumnType("int");
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Tytul")
                         .IsRequired()
@@ -124,6 +126,53 @@ namespace KsiegarniaPKP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ksiazki");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Autor = "Adam Mickiewicz",
+                            Cena = 0.1f,
+                            Gatunek = "Horror",
+                            Opis = "Straszne rzeczy",
+                            Tytul = "Dziady I"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Autor = "Adam Mickiewicz",
+                            Cena = 2.2f,
+                            Gatunek = "Komedia",
+                            Opis = "Straszne rzeczy",
+                            Tytul = "Dziady II"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Autor = "Adam Mickiewicz",
+                            Cena = 33.3f,
+                            Gatunek = "Dramat",
+                            Opis = "Straszne rzeczy",
+                            Tytul = "Dziady III"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Autor = "Adam Mickiewicz",
+                            Cena = 4444.4f,
+                            Gatunek = "Powieść obyczajowa",
+                            Opis = "Straszne rzeczy",
+                            Tytul = "Dziady IV"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Autor = "Adam Mickiewicz",
+                            Cena = 55555.5f,
+                            Gatunek = "Sci-fi",
+                            Opis = "Straszne rzeczy",
+                            Tytul = "Dziady V"
+                        });
                 });
 
             modelBuilder.Entity("KsiegarniaPKP.Models.Oferta", b =>
@@ -144,6 +193,98 @@ namespace KsiegarniaPKP.Migrations
                     b.HasIndex("KsiazkaId");
 
                     b.ToTable("Oferty");
+
+                    b.HasData(
+                        new
+                        {
+                            OfertaId = 1,
+                            Dostepnosc = false,
+                            KsiazkaId = 1
+                        },
+                        new
+                        {
+                            OfertaId = 2,
+                            Dostepnosc = false,
+                            KsiazkaId = 2
+                        },
+                        new
+                        {
+                            OfertaId = 3,
+                            Dostepnosc = true,
+                            KsiazkaId = 2
+                        },
+                        new
+                        {
+                            OfertaId = 4,
+                            Dostepnosc = false,
+                            KsiazkaId = 3
+                        },
+                        new
+                        {
+                            OfertaId = 5,
+                            Dostepnosc = true,
+                            KsiazkaId = 3
+                        },
+                        new
+                        {
+                            OfertaId = 6,
+                            Dostepnosc = true,
+                            KsiazkaId = 3
+                        },
+                        new
+                        {
+                            OfertaId = 7,
+                            Dostepnosc = false,
+                            KsiazkaId = 4
+                        },
+                        new
+                        {
+                            OfertaId = 8,
+                            Dostepnosc = true,
+                            KsiazkaId = 4
+                        },
+                        new
+                        {
+                            OfertaId = 9,
+                            Dostepnosc = true,
+                            KsiazkaId = 4
+                        },
+                        new
+                        {
+                            OfertaId = 10,
+                            Dostepnosc = true,
+                            KsiazkaId = 4
+                        },
+                        new
+                        {
+                            OfertaId = 11,
+                            Dostepnosc = false,
+                            KsiazkaId = 5
+                        },
+                        new
+                        {
+                            OfertaId = 12,
+                            Dostepnosc = true,
+                            KsiazkaId = 5
+                        },
+                        new
+                        {
+                            OfertaId = 13,
+                            Dostepnosc = true,
+                            KsiazkaId = 5
+                        },
+                        new
+                        {
+                            OfertaId = 14,
+                            Dostepnosc = true,
+                            KsiazkaId = 5
+                        },
+                        new
+                        {
+                            OfertaId = 15,
+                            Dostepnosc = true,
+                            KsiazkaId = 5
+                        });
                 });
 
             modelBuilder.Entity("KsiegarniaPKP.Models.PozycjaKoszyka", b =>

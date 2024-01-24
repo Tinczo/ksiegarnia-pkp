@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 
 namespace KsiegarniaPKP.Controllers
 {
+    // TODO: [ ] sprawdzić czemu nie działa komunikat, kiedy nie ma już więcej książek
+    // TODO: [ ] dodac obliczenie sumy w koszyku
+    // TODO: [ ] dodac cene do ksiązki w koszyku i sumarycznie (cena razy ilość) - po prawej stronie
+    // TODO: [ ] wyrównać, żeby nazwy były pośrodku w kolumnach
+    // TODO: [ ] dodać grafiki
+    // TODO: [ ] dodac wyszukiwarke z filtrami (zbierac z wszystkich dostępnych ofert informacje takie jak gatunki, Autora, roadio button rosnąco czy malejąco,
+    // TODO: [ ] szukanie po nazwie ksiazki, generalnie wszystko co tam jest, sprawdź dodawanie przycisków 
+    // TODO: [ ] zamienic logowanie na stary sposob, usunac id i zobaczyc czy bez tego dziala
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -13,23 +13,44 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Dostepnosc)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ksiazka)
+                Dostępność
+            </th>
+            <th>
+                Tytuł
+            </th>
+            <th>
+                Nazwa
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                Gatunek
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfertaId)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dostepnosc)
-            </td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ksiazka.Tytul)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ksiazka.Autor)
-            </td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ksiazka.Gatunek)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.OfertaId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.OfertaId">Details</a> |

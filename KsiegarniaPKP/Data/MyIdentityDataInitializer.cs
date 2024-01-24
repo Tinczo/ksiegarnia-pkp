@@ -57,13 +57,16 @@ namespace KsiegarniaPKP.Data
         public static void SeedOneUser(UserManager<Uzytkownik> userManager,
                                         string email, string password, string imie, string nazwisko, string role = null)
         {
-            if (userManager.FindByNameAsync(email).Result == null)
+            string name = imie + "-" + nazwisko;
+            if (userManager.FindByNameAsync(name).Result == null)
             {
+                string id = imie + nazwisko + "_" + email;
                 Uzytkownik user = new Uzytkownik
                 {
+                    Id = id,
                     Imie = imie,
                     Nazwisko = nazwisko,
-                    UserName = email, 
+                    UserName = name, 
                     Email = email
                 };
                 IdentityResult result = userManager.CreateAsync(user, password).Result;
@@ -75,10 +78,11 @@ namespace KsiegarniaPKP.Data
         }
         public static void SeedUsers(UserManager<Uzytkownik> userManager)
         {
-            SeedOneUser(userManager, "uzytkownik@gmail.com", "nUpass1!", "Szymon", "Wieczorek", "Uzytkownik");
-            SeedOneUser(userManager, "kurier@gmail.com", "kUpass1!", "Karol", "Pilat", "Kurier");
-            SeedOneUser(userManager, "pracownik@gmail.com", "pUpass1!", "Dawid", "Spalek", "Pracownik");
-            SeedOneUser(userManager, "admin@gmail.com", "aUpass1!", "Urszula", "Staszak", "Admin");
+            Constants c = new Constants();
+            SeedOneUser(userManager, c.emaile[0], c.hasla[0], c.imiona[0], c.nazwiska[0], c.role[0]);
+            SeedOneUser(userManager, c.emaile[1], c.hasla[1], c.imiona[1], c.nazwiska[1], c.role[1]);
+            SeedOneUser(userManager, c.emaile[2], c.hasla[2], c.imiona[2], c.nazwiska[2], c.role[2]);
+            SeedOneUser(userManager, c.emaile[3], c.hasla[3], c.imiona[3], c.nazwiska[3], c.role[3]);
         }
     }
 

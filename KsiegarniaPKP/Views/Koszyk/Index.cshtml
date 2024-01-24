@@ -1,0 +1,81 @@
+﻿@model IEnumerable<KsiegarniaPKP.ViewModels.PozycjaKoszykaViewModel>
+
+
+@{
+    ViewData["Title"] = "Twój koszyk";
+}
+
+<h1>Your Cart</h1>
+@if (!Model.Any())
+{
+    <p>W twoim koszyku nie ma niczego...</p>
+}
+else
+{
+    if (ViewBag.brakOfert == true)
+    {
+        <p class="alert-danger">Produkt, którego próbujesz zwiększyć ilość skończył się!</p>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                alert("Niestety, nie ma już dostępnych ofert dla wybranej książki.");
+            });
+        </script>
+    }
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nazwa</th>
+                <th>Autor</th>
+                <th>Gatunek</th>
+                <th>Ilość</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="~/image/default.png" width="100" height="100" alt="defaultImage" /></td>
+                    <td>@item.Ksiazka.Tytul</td>
+                    <td>@item.Ksiazka.Autor</td>
+                    <td>@item.Ksiazka.Gatunek</td>
+                    <td>@item.Ilosc</td>
+                    <td>
+                        <form asp-action="IncrementCartItem" method="post">
+                            <input type="hidden" name="ksiazkaId" value="@item.Ksiazka.Id" />
+                            <input type="image" src="~/image/plus.png" width="50" height="50" alt="Increment" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="DecrementCartItem" method="post">
+                            <input type="hidden" name="ksiazkaId" value="@item.Ksiazka.Id" />
+                            <input type="image" src="~/image/minus.png" width="50" height="50 alt="Decrement" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="RemoveCartItem" method="post">
+                            <input type="hidden" name="ksiazkaId" value="@item.Ksiazka.Id" />
+                            <input type="image" src="~/image/bin.png" width="50" height="50 alt="Remove" />
+                        </form>
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" style="text-align: right;"><strong>Total:</strong></td>
+                <td><strong>@ViewBag.Total</strong></td>
+                <td>
+                    <a asp-action="Summary">Summary</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}

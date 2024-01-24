@@ -56,7 +56,7 @@ namespace KsiegarniaPKP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Autor = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Tytul = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    RokWydania = table.Column<int>(type: "int", nullable: false),
+                    Gatunek = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Opis = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Cena = table.Column<float>(type: "real", nullable: false)
                 },
@@ -308,6 +308,42 @@ namespace KsiegarniaPKP.Migrations
                         principalColumn: "OfertaId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Ksiazki",
+                columns: new[] { "Id", "Autor", "Cena", "Gatunek", "Opis", "Tytul" },
+                values: new object[,]
+                {
+                    { 1, "Adam Mickiewicz", 0.1f, "Horror", "Straszne rzeczy", "Dziady I" },
+                    { 2, "Adam Mickiewicz", 2.2f, "Komedia", "Straszne rzeczy", "Dziady II" },
+                    { 3, "Adam Mickiewicz", 33.3f, "Dramat", "Straszne rzeczy", "Dziady III" },
+                    { 4, "Adam Mickiewicz", 4444.4f, "Powieść obyczajowa", "Straszne rzeczy", "Dziady IV" },
+                    { 5, "Adam Mickiewicz", 55555.5f, "Sci-fi", "Straszne rzeczy", "Dziady V" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Oferty",
+                columns: new[] { "OfertaId", "Dostepnosc", "KsiazkaId" },
+                values: new object[,]
+                {
+                    { 1, false, 1 },
+                    { 2, false, 2 },
+                    { 3, true, 2 },
+                    { 4, false, 3 },
+                    { 5, true, 3 },
+                    { 6, true, 3 },
+                    { 7, false, 4 },
+                    { 8, true, 4 },
+                    { 9, true, 4 },
+                    { 10, true, 4 },
+                    { 11, false, 5 },
+                    { 12, true, 5 },
+                    { 13, true, 5 },
+                    { 14, true, 5 },
+                    { 15, true, 5 }
+                });
+
+            
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

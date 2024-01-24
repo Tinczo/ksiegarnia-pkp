@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using KsiegarniaPKP.Models;
+using KsiegarniaPKP.Data;
 
 namespace KsiegarniaPKP.Models
 {
@@ -91,6 +92,9 @@ namespace KsiegarniaPKP.Models
                 .HasOne(d => d.Pracownik)
                 .WithMany(u => u.PracownikDokumenty)
                 .HasForeignKey(d => d.PracownikId);
+
+
+            modelBuilder.SeedDatabase();
         }
 
         // Tutaj konfigurujesz relacje między encjami

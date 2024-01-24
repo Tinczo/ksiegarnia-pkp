@@ -3,45 +3,65 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KsiegarniaPKP</title>
+    <title>Ksiegarnia PKP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .centered {
+            position: fixed; /* Ustawia element w sposób stały na ekranie */
+            top: 25%; /* Ustawia górny margines na 50% wysokości okna */
+            left: 50%; /* Ustawia lewy margines na 50% szerokości okna */
+            transform: translate(-50%, -50%); /* Przesuwa element o 50% jego szerokości i wysokości w lewo i w górę */
+            text-align: center; /* Centruje tekst w poziomie */
+        }
+    </style>
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KsiegarniaPKP</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ksiegarnia PKP</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item" style="display: flex; align-items: center;">
+                            <a asp-controller="Home" asp-action="Index" style="display: flex; align-items: center; margin-right: 10px;">
+                                <img src="~/image/home.png" width="30" height="30" alt="Cart" />
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dokuments" asp-action="Index">Dokumenty</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dostawas" asp-action="Index">Dostawy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Ksiazkas" asp-action="Index">Książki</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Ofertas" asp-action="Index">Oferty</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PozycjaKoszykas" asp-action="Index">Pozycje koszyków</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienies" asp-action="Index">Zamówienia</a>
-                        </li>
+                        @if (User.IsInRole("Uzytkownik"))
+                        {
+                            <li class="nav-item" style="display: flex; align-items: center;">
+                                <a asp-controller="Koszyk" asp-action="Index" style="display: flex; align-items: center;">
+                                    <img src="~/image/cart.png" width="30" height="30" alt="Cart" />
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Pracownik") || User.IsInRole("Uzytkownik"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dokuments" asp-action="Index">Dokumenty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dostawas" asp-action="Index">Dostawy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Ksiazkas" asp-action="Index">Książki</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Ofertas" asp-action="Index">Oferty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="PozycjaKoszykas" asp-action="Index">Pozycje koszyków</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienies" asp-action="Index">Zamówienia</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -56,7 +76,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - KsiegarniaPKP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Ksiegarnia PKP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Polityka</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
