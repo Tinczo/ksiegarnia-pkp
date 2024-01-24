@@ -6,5 +6,6 @@ namespace KsiegarniaPKP.ViewModels
     {
         public Ksiazka Ksiazka { get; set; }
         public int Ilosc {  get; set; }
+        public float Sumarycznie {  get; set; }
     }
 }

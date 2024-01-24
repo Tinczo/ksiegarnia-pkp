@@ -30,6 +30,7 @@ namespace KsiegarniaPKP.Controllers
         public async Task<IActionResult> Index()
         {
             string userId = _userManager.GetUserId(User);
+            float sumarycznie = 0f;
 
             var pozycjeKoszyka = await _context.PozycjaKoszyka
                 .Where(pk => pk.KlientId == userId)
@@ -42,8 +43,16 @@ namespace KsiegarniaPKP.Controllers
                 .Select(group => new PozycjaKoszykaViewModel
                 {
                     Ksiazka = group.Key,
-                    Ilosc = group.Count()
+                    Ilosc = group.Count(),
+                    Sumarycznie = group.Key.Cena * group.Count()
                 }).ToList();
+
+            foreach(var pk in koszyk)
+            {
+                sumarycznie += pk.Sumarycznie;
+            }
+
+            ViewBag.sumarycznie = sumarycznie;
 
             return View(koszyk);
         }
@@ -60,7 +69,7 @@ namespace KsiegarniaPKP.Controllers
 
             if (oferta == null)
             {
-                ViewBag.brakOfert = true;
+                TempData["brakOferty"] = true;
                 return RedirectToAction("Index");
             }
 

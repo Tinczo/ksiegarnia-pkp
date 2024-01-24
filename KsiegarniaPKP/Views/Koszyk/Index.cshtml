@@ -3,16 +3,27 @@
 
 @{
     ViewData["Title"] = "Twój koszyk";
+    bool brakOferty = false;
+    float sumarycznie = 0f;
+    if (TempData["brakOferty"] != null)
+    {
+        brakOferty = (bool) TempData["brakOferty"];
+    }
+
+    if (ViewBag.Sumarycznie != null)
+    {
+        sumarycznie = (float)ViewBag.Sumarycznie;
+    }
 }
 
-<h1>Your Cart</h1>
+<h1>Twój koszyk</h1>
 @if (!Model.Any())
 {
     <p>W twoim koszyku nie ma niczego...</p>
 }
 else
 {
-    if (ViewBag.brakOfert == true)
+    if (brakOferty == true)
     {
         <p class="alert-danger">Produkt, którego próbujesz zwiększyć ilość skończył się!</p>
 
@@ -27,13 +38,14 @@ else
         <thead>
             <tr>
                 <th></th>
-                <th>Nazwa</th>
+                <th>Tytuł</th>
                 <th>Autor</th>
                 <th>Gatunek</th>
                 <th>Ilość</th>
                 <th></th>
                 <th></th>
                 <th></th>
+                <th>Sumarycznie</th>
             </tr>
         </thead>
         <tbody>
@@ -63,6 +75,7 @@ else
                             <input type="image" src="~/image/bin.png" width="50" height="50 alt="Remove" />
                         </form>
                     </td>
+                    <td>@item.Sumarycznie.ToString("0.00") zł</td>
                 </tr>
 
             }
@@ -70,10 +83,14 @@ else
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6" style="text-align: right;"><strong>Total:</strong></td>
-                <td><strong>@ViewBag.Total</strong></td>
+                <td colspan="7" style="text-align: right;"></td>
+                <td><strong>Total:</strong></td>
+                <td><strong>@sumarycznie.ToString("0.00") zł</strong></td>
+            </tr>
+            <tr>
+                <td colspan="8" style="text-align: right;"></td>
                 <td>
-                    <a asp-action="Summary">Summary</a>
+                    <a asp-action="Index" class="btn btn-success">Złóż zamówienie</a>
                 </td>
             </tr>
         </tfoot>
